@@ -4,61 +4,73 @@
   description = "A very basic flake";
 
   inputs = {
+    systems.url = "github:nix-systems/x86_64-linux";
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
+    impermanence.url = "github:nix-community/impermanence";
   };
 
-  outputs = {nixpkgs, ...}: let
-    supportedSystems = ["x86_64-linux"];
-    inherit (nixpkgs) lib;
-    forAllSystems = fn:
-      nixpkgs.lib.genAttrs supportedSystems (system:
-        fn {
-          inherit system;
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["vscode-with-extensions" "vscode"];
-          };
-        });
-  in {
-    formatter = forAllSystems ({pkgs, ...}: pkgs.alejandra);
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+    ...
+  } @ inputs:
+    flake-utils.lib.eachDefaultSystem (system: let
+      inherit (nixpkgs) lib;
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      formatter = pkgs.alejandra;
 
-    devShells = forAllSystems ({pkgs, ...}: {
-      editor.vscode = let
-        ext = with pkgs.vscode-extensions; {
-          base = [
-            vscodevim.vim
-            ms-vscode.hexeditor
-          ];
-          rust = [
-            tamasfe.even-better-toml
-            rust-lang.rust-analyzer
-          ];
-          nix = [
-            jnoortheen.nix-ide
-          ];
-          github = [
-            bierner.markdown-preview-github-styles
-            github.vscode-github-actions
-          ];
+      devShells = {
+        install-nixos = pkgs.mkShell {
+          buildInputs = with pkgs; [neovim fish];
         };
-      in {
-        rust-quick = pkgs.mkShell {
-          buildInputs =
-            (builtins.attrValues {
-              inherit
-                (pkgs)
-                rust-analyzer
-                nixd
-                cargo
-                ;
-            })
-            ++ [
-              (pkgs.vscode-with-extensions.override {
-                vscodeExtensions = with ext; base ++ nix ++ rust ++ github;
-              })
+
+        rust = self.devShells.${system}.editor.vscode.rust-quick;
+
+        editor.vscode = let
+          ext = with pkgs.vscode-extensions; {
+            base = [
+              vscodevim.vim
+              ms-vscode.hexeditor
             ];
+            rust = [
+              tamasfe.even-better-toml
+              rust-lang.rust-analyzer
+            ];
+            nix = [
+              jnoortheen.nix-ide
+            ];
+            github = [
+              bierner.markdown-preview-github-styles
+              github.vscode-github-actions
+            ];
+          };
+        in {
+          rust-quick = pkgs.mkShell {
+            buildInputs =
+              (builtins.attrValues {
+                inherit
+                  (pkgs)
+                  rust-analyzer
+                  nixd
+                  cargo
+                  ;
+              })
+              ++ [
+                (pkgs.vscode-with-extensions.override {
+                  vscodeExtensions = with ext; base ++ nix ++ rust ++ github;
+                })
+              ];
+          };
         };
       };
+
+      nixosModules = import ./nixos-modules inputs;
+      diskoConfigurations = import ./disko;
     });
-  };
 }
