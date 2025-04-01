@@ -29,6 +29,7 @@ let
 
     # Nix store & impermanence old roots
     system = {
+      type = "8303";
       priority = "200";
       content = {
         type = "luks";
@@ -61,6 +62,7 @@ let
     };
 
     swap = {
+      type = "8200";
       priority = "300";
       content = {
         type = "swap";
@@ -69,26 +71,24 @@ let
     };
 
     home.content = {
-      type = "ext4";
+      type = "8302";
       size = "100%";
+      content.type = "ext4";
     };
 
-    rescue.content = {
-      type = "raw";
+    rescue = {
+      type = "8301";
       start = "-10G";
-      size = "-0";
+      end = "-0";
+      content.type = "raw";
     };
   };
 in {
-  disko.devices = {
-    disk = {
-      nixos = {
-        type = "disk";
-        content = {
-          type = "gpt";
-          inherit partitions;
-        };
-      };
+  disko.devices.disk.nixos = {
+    type = "disk";
+    content = {
+      type = "gpt";
+      inherit partitions;
     };
   };
 }
