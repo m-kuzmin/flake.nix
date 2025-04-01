@@ -31,6 +31,7 @@ let
     system = {
       type = "8303";
       priority = "200";
+      size = "100G";
       content = {
         type = "luks";
         name = "nixos-system";
@@ -63,6 +64,7 @@ let
 
     swap = {
       type = "8200";
+      size = "20G";
       priority = "300";
       content = {
         type = "swap";
@@ -89,6 +91,7 @@ let
 in {
   disko.devices.disk.nixos = {
     type = "disk";
+    device = "/dev/nvme0n1";
     content = {
       type = "gpt";
       inherit partitions;
