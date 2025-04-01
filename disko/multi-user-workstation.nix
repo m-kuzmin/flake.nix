@@ -1,4 +1,4 @@
-{...}: let
+let
   /*
   Set this in hardware-configuration.nix:
   disko.devices.disk.nixos.device = "/dev/disk/by-id/ ... ";
@@ -70,10 +70,13 @@
       };
     };
 
-    home.content = {
+    home = {
       type = "8302";
       size = "100%";
-      content.type = "ext4";
+      content = {
+        type = "filesystem";
+	format = "ext4";
+      };
     };
 
     rescue = {
