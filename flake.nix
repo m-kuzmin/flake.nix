@@ -77,8 +77,9 @@
           };
         };
       };
-
+    })
+    // {
       nixosModules = import ./nixos-modules inputs;
       diskoConfigurations = import ./disko;
-    });
+    };
 }
