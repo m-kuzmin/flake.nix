@@ -1,4 +1,4 @@
-inputs: {config, ...}: let
+inputs: {config, lib, ...}: let
   system-partition = "/persistent/system";
 in {
   imports = [
