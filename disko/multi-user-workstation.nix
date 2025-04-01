@@ -1,4 +1,4 @@
-let
+{...}: let
   /*
   Set this in hardware-configuration.nix:
   disko.devices.disk.nixos.device = "/dev/disk/by-id/ ... ";
