@@ -5,12 +5,19 @@
 
   inputs = {
     systems.url = "github:nix-systems/x86_64-linux";
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
+
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     impermanence.url = "github:nix-community/impermanence";
+
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
   };
 

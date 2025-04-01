@@ -1,4 +1,8 @@
-inputs: {config, lib, ...}: let
+inputs: {
+  config,
+  lib,
+  ...
+}: let
   system-partition = "/persistent/system";
 in {
   imports = [
@@ -27,7 +31,12 @@ in {
       "/etc/credstore/"
       "/etc/credstore.encrypted/"
       "/etc/nixos"
-      { directory = "/root"; user = "root"; group = "root"; mode = "0700"; }
+      {
+        directory = "/root";
+        user = "root";
+        group = "root";
+        mode = "0700";
+      }
     ];
     files = [
       "/etc/machine-id"
