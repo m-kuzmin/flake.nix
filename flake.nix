@@ -11,6 +11,7 @@
       inputs.systems.follows = "systems";
     };
     impermanence.url = "github:nix-community/impermanence";
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
   };
 
   outputs = {
