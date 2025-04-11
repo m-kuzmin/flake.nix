@@ -30,7 +30,10 @@
     flake-utils.lib.eachDefaultSystem (system: let
       inherit (nixpkgs) lib;
       pkgs = nixpkgs.legacyPackages.${system};
-      unfree = import nixpkgs { inherit system; config.allowUnfree = true; };
+      unfree = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in {
       formatter = pkgs.alejandra;
 
@@ -42,6 +45,21 @@
         rust = self.devShells.${system}.editor.vscode.rust-quick;
 
         editor.vscode = let
+          cli = with pkgs; {
+            base = [
+              ripgrep
+              bat
+            ];
+            rust = [
+              rust-analyzer
+              cargo
+            ];
+            nix = [
+              nixd
+              alejandra
+            ];
+          };
+
           ext = with unfree.vscode-extensions; {
             base = [
               vscodevim.vim
@@ -62,14 +80,7 @@
         in {
           rust-quick = unfree.mkShell {
             buildInputs =
-              (builtins.attrValues {
-                inherit
-                  (pkgs)
-                  rust-analyzer
-                  nixd
-                  cargo
-                  ;
-              })
+              (with cli; base ++ rust ++ nix)
               ++ [
                 (unfree.vscode-with-extensions.override {
                   vscodeExtensions = with ext; base ++ nix ++ rust ++ github;
