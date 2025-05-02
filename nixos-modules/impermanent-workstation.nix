@@ -20,6 +20,8 @@ in {
     ];
   };
 
+  boot.initrd.systemd.enable=true;
+
   enviroment.persistence.${system-partition} = {
     hideMounts = true;
     directories = [
