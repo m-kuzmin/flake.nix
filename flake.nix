@@ -4,7 +4,7 @@
   description = "A very basic flake";
 
   inputs = {
-    systems.url = "github:nix-systems/x86_64-linux";
+    systems.url = "github:nix-systems/default";
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
@@ -28,7 +28,6 @@
     ...
   } @ inputs:
     flake-utils.lib.eachDefaultSystem (system: let
-      inherit (nixpkgs) lib;
       pkgs = nixpkgs.legacyPackages.${system};
       unfree = import nixpkgs {
         inherit system;
@@ -36,58 +35,10 @@
       };
     in {
       formatter = pkgs.alejandra;
-
-      devShells = {
-        install-nixos = pkgs.mkShell {
-          buildInputs = with pkgs; [neovim fish];
-        };
-
-        rust = self.devShells.${system}.editor.vscode.rust-quick;
-
-        editor.vscode = let
-          cli = with pkgs; {
-            base = [
-              ripgrep
-              bat
-            ];
-            rust = [
-              rust-analyzer
-              cargo
-            ];
-            nix = [
-              nixd
-              alejandra
-            ];
-          };
-
-          ext = with unfree.vscode-extensions; {
-            base = [
-              vscodevim.vim
-              ms-vscode.hexeditor
-            ];
-            rust = [
-              tamasfe.even-better-toml
-              rust-lang.rust-analyzer
-            ];
-            nix = [
-              jnoortheen.nix-ide
-            ];
-            github = [
-              bierner.markdown-preview-github-styles
-              github.vscode-github-actions
-            ];
-          };
-        in {
-          rust-quick = unfree.mkShell {
-            buildInputs =
-              (with cli; base ++ rust ++ nix)
-              ++ [
-                (unfree.vscode-with-extensions.override {
-                  vscodeExtensions = with ext; base ++ nix ++ rust ++ github;
-                })
-              ];
-          };
-        };
+      packages = import ./packages {inherit pkgs;};
+      devShells = import ./devshells {
+        inherit pkgs unfree;
+        inherit (self.packages.${system}) nvim makeGitWrapper;
       };
     })
     // {
