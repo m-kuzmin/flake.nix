@@ -1,6 +1,7 @@
 {
   pkgs,
   unfree,
+  identity,
   nvim,
   makeGitWrapper,
 }: let
@@ -29,7 +30,7 @@
       ++ [
         nvim
         (makeGitWrapper {
-          name = "for-m-kuzmin";
+          name = "for-${identity.v1.github}";
           config = [
             {
               init.defaultBranch = "main";
@@ -37,9 +38,8 @@
               core.editor = "nvim";
               commit.gpgSign = true;
               user = {
-                name = "m-kuzmin";
-                email = "71077087+m-kuzmin@users.noreply.github.com";
-                signingKey = "FFC1B51AA48F1AD80D18A98973EBBB9DB276AAB1";
+                inherit (identity.v1) email signingKey;
+                name = identity.v1.github;
               };
             }
           ];

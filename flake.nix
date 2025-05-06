@@ -1,5 +1,3 @@
-# SPDX-License-Identifier: MIT
-# Copyright Maxim Kuzmin <m.kuzmin.r@gmail.com> 2024
 {
   description = "A very basic flake";
 
@@ -19,12 +17,15 @@
     impermanence.url = "github:nix-community/impermanence";
 
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+
+    identity.url = "github:m-kuzmin/m-kuzmin";
   };
 
   outputs = {
     self,
     nixpkgs,
     flake-utils,
+    identity,
     ...
   } @ inputs:
     flake-utils.lib.eachDefaultSystem (system: let
@@ -38,6 +39,7 @@
       packages = import ./packages {inherit pkgs;};
       devShells = import ./devshells {
         inherit pkgs unfree;
+        inherit (identity) identity;
         inherit (self.packages.${system}) nvim makeGitWrapper;
       };
     })
