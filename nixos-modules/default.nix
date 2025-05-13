@@ -4,4 +4,5 @@ inputs: {
   github = import ./github.nix;
   enable-flakes = {nix.settings.experimental-features = ["nix-command" "flakes"];};
   homed-users = import ./homed-users.nix;
+  syncthing = import ./syncthing.nix;
 }

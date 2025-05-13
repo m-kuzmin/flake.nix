@@ -1,3 +1,7 @@
+# Copyright (c) 2003-2025 Eelco Dolstra and the Nixpkgs/NixOS contributors
+# License: MIT
+#
+# A large portion of this code was copied from nixpkgs.
 {
   config,
   pkgs,
@@ -5,11 +9,7 @@
   ...
 }: let
   cfg = config.users.homed;
-  userOpts = {
-    name,
-    config,
-    ...
-  }: {
+  userOpts = {name, ...}: {
     options = {
       name = lib.mkOption {
         type = with lib.types; passwdEntry str;
