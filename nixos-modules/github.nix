@@ -3,16 +3,10 @@
     enable = true;
     pinentryPackage = pkgs.pinentry-gnome3;
   };
+  programs.ssh.startAgent = true;
 
   environment.systemPackages = with pkgs; [gh];
   programs.git.enable = true;
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    vimAlias = true;
-    viAlias = true;
-  };
-
   programs.git.config = [
     {
       init.defaultBranch = "main";
@@ -20,4 +14,11 @@
       core.editor = "nvim";
     }
   ];
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    vimAlias = true;
+    viAlias = true;
+  };
 }
