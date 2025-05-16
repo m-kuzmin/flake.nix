@@ -3,7 +3,10 @@
     enable = true;
     pinentryPackage = pkgs.pinentry-gnome3;
   };
-  programs.ssh.startAgent = true;
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = true;
+  };
 
   environment.systemPackages = with pkgs; [gh];
   programs.git.enable = true;
