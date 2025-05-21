@@ -18,7 +18,7 @@
 
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
 
-    identity.url = "github:m-kuzmin/m-kuzmin";
+    identity.follows = "";
   };
 
   outputs = {
@@ -46,5 +46,12 @@
     // {
       nixosModules = import ./nixos-modules inputs;
       diskoConfigurations = import ./disko;
+
+      identity.v1 = {
+        name = "Maksym Kuzmin";
+        github = "m-kuzmin";
+        email = "71077087+m-kuzmin@users.noreply.github.com";
+        signingKey = "FFC1 B51A A48F 1AD8 0D18  A989 73EB BB9D B276 AAB1";
+      };
     };
 }

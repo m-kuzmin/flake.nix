@@ -9,9 +9,23 @@ Meaning, if you wanna tailor this flake to your needs, fork or copy the code int
 any issues or PRs unless they improve something. The only customer here is me.
 
 > [!WARNING]
-> The devshells configure git to use my personal Git credentials. You can override this by overriding the `identity`
-> input of this flake. See [m-kuzmin/m-kuzmin](https://github.com/m-kuzmin/m-kuzmin) flake.nix's `identity` output for
-> details of the format.
+> The devshells configure git and other tools to use my personal Git credentials. You can override this by overriding
+> the `identity` input of this flake.
+>
+> Here's how to specify credentials in your own flake:
+> ```nix
+> {
+>   inputs.m-kuzmin.inputs.identity.follows = "";
+>   outputs = {                             # |
+>    self, # meaning this self <--------------|
+>    m-kuzmin,
+>    ...
+>   }: { 
+>     indentity.v1 = { ... };
+>     inherit (m-kuzmin) devShells;
+>   };
+> }
+> ```
 
 ## Copying
 
