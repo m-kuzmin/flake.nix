@@ -40,7 +40,7 @@
       devShells = import ./devshells {
         inherit pkgs unfree;
         inherit (identity) identity;
-        inherit (self.packages.${system}) nvim makeGitWrapper;
+        inherit (self.packages.${system}) nvim makeGitWrapper makeGitHubCliWrapper;
       };
     })
     // {

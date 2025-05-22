@@ -4,6 +4,7 @@
   identity,
   nvim,
   makeGitWrapper,
+  makeGitHubCliWrapper,
 }: let
   makeVscode = {
     packages ? [],
@@ -25,7 +26,6 @@
         fish
         ripgrep
         bat
-        gh
       ])
       ++ [
         nvim
@@ -43,6 +43,10 @@
               };
             }
           ];
+        })
+        (makeGitHubCliWrapper {
+          name = "for-${identity.v1.github}";
+          username = identity.v1.github;
         })
       ];
     rust = with pkgs; [
