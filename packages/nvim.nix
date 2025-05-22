@@ -1,5 +1,4 @@
 {
-  stdenv,
   wrapNeovim,
   neovim-unwrapped,
   withPython3 ? false,
