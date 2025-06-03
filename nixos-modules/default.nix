@@ -1,5 +1,5 @@
 inputs: {
-  cosmic-de = import ./cosmic-de.nix inputs;
+  cosmic-de = import ./cosmic-de.nix;
   impermanent-workstation = import ./impermanent-workstation.nix inputs;
   github = import ./github.nix;
   enable-flakes = {nix.settings.experimental-features = ["nix-command" "flakes"];};
