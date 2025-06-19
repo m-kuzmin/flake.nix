@@ -34,6 +34,7 @@
       };
     };
     config = {
+      _module.args = {inherit pkgs;};
       name = lib.mkDefault name;
     };
   };
