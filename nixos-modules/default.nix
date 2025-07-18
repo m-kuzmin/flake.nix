@@ -6,4 +6,5 @@ inputs: {
   homed-users = import ./homed-users.nix;
   syncthing = import ./syncthing.nix;
   borg-user = import ./borg-user.nix;
+  yubikey-login = import ./yubikey-login.nix;
 }
