@@ -7,4 +7,5 @@ inputs: {
   syncthing = import ./syncthing.nix;
   borg-user = import ./borg-user.nix;
   yubikey-login = import ./yubikey-login.nix;
+  gaming = import ./gaming.nix;
 }
