@@ -35,7 +35,7 @@
       formatter = pkgs.alejandra;
       packages = import ./packages {inherit pkgs;};
       devShells = import ./devshells {
-        inherit pkgs unfree;
+        inherit pkgs unfree system self;
         inherit (identity) identity;
         inherit (self.packages.${system}) nvim makeGitWrapper makeGitHubCliWrapper;
       };

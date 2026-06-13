@@ -1,6 +1,8 @@
 {
   pkgs,
   unfree,
+  system,
+  self,
   identity,
   nvim,
   makeGitWrapper,
@@ -56,6 +58,7 @@
     nix = with pkgs; [
       nixd
       alejandra
+      self.packages.${system}.flake-update
     ];
   };
 
