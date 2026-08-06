@@ -28,6 +28,8 @@
         fish
         ripgrep
         bat
+        just
+        lazygit
       ])
       ++ [
         nvim
@@ -66,6 +68,7 @@
     base = [
       vscodevim.vim
       ms-vscode.hexeditor
+      skellock.just
     ];
     rust = [
       tamasfe.even-better-toml
