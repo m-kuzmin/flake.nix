@@ -40,6 +40,9 @@
               init.defaultBranch = "main";
               url."git@github.com:".insteadOf = ["github:"];
               core.editor = "nvim";
+              core.excludesFile = pkgs.writeText "git-ignore" ''
+                .vscode
+              '';
               commit.gpgSign = true;
               user = {
                 inherit (identity.v1) email signingKey;
