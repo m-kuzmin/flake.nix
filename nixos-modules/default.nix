@@ -5,8 +5,6 @@ inputs: {
   gaming = import ./gaming.nix;
   github = import ./github.nix;
   homed-users = import ./homed-users.nix;
-  impermanent-workstation = import ./impermanent-workstation.nix inputs;
   repart = ./repart.nix;
   syncthing = import ./syncthing.nix;
-  yubikey-login = import ./yubikey-login.nix;
 }
