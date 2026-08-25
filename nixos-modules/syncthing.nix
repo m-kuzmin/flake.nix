@@ -1,17 +1,24 @@
+# A NixOS module to run syncthing as a user service.
+#
+# This allows the system to have many sycnthing services for each user. The
+# nixpkgs module automatically starts the system level service, which is not
+# desired in some circumstances.
+#
+# The module definition comes from the syncthing package.
 {
   pkgs,
   lib,
   config,
   ...
 }: let
-  inherit (lib) mkIf mkOption types foldlAttrs;
+  inherit (lib) mkIf mkOption types foldlAttrs mkDefault;
   cfg = config.services.syncthing.perUser;
 in {
   options.services.syncthing = {
     perUser = let
       perUserOpts = {name, ...}: {
         options = {
-          name = lib.mkOption {
+          name = mkOption {
             type = types.str;
             description = "A unix user for which the Syncthing service is configured.";
           };
@@ -26,7 +33,7 @@ in {
           };
         };
         config = {
-          name = lib.mkDefault name;
+          name = mkDefault name;
         };
       };
     in
