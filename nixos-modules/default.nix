@@ -1,4 +1,5 @@
 inputs: {
+  app-image = import ./app-image.nix;
   borg-user = import ./borg-user.nix;
   cosmic-de = import ./cosmic-de.nix;
   enable-flakes = {nix.settings.experimental-features = ["nix-command" "flakes"];};
