@@ -7,6 +7,7 @@
     startAgent = true;
     enableAskPassword = true;
   };
+  services.gnome.gcr-ssh-agent.enable = false;
 
   environment.systemPackages = with pkgs; [gh];
   programs.git.enable = true;
