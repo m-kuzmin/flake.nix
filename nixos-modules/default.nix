@@ -12,4 +12,5 @@ inputs: {
   plymouth = import ./plymouth.nix;
   repart = ./repart.nix;
   syncthing = import ./syncthing.nix;
+  systemd-boot = import ./systemd-boot.nix;
 }
