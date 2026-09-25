@@ -1,4 +1,6 @@
 inputs: {
+  user = import ./user;
+
   app-image = import ./app-image.nix;
   borg-user = import ./borg-user.nix;
   cosmic-de = import ./cosmic-de.nix;
