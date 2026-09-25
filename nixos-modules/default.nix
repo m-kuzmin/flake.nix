@@ -7,6 +7,7 @@ inputs: {
   gc = import ./gc.nix;
   github = import ./github.nix;
   homed-users = import ./homed-users.nix;
+  kvm = import ./kvm.nix;
   repart = ./repart.nix;
   syncthing = import ./syncthing.nix;
 }
