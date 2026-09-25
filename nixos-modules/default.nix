@@ -8,6 +8,7 @@ inputs: {
   github = import ./github.nix;
   homed-users = import ./homed-users.nix;
   kvm = import ./kvm.nix;
+  networking = import ./networking.nix;
   repart = ./repart.nix;
   syncthing = import ./syncthing.nix;
 }
