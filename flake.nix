@@ -9,6 +9,8 @@
     };
 
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    # Temporary package downgrade to fix https://github.com/bluez/bluez/issues/2562
+    nixpkgs-bluetooth.url = "github:nixos/nixpkgs/56c02bc00adcf003215cc4bd996d6efaf4cff188";
     impermanence.url = "github:nix-community/impermanence";
 
     identity.follows = "";
