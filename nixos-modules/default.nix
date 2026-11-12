@@ -11,6 +11,7 @@ inputs: {
   homed-users = import ./homed-users.nix;
   kvm = import ./kvm.nix;
   networking = import ./networking.nix;
+  ollama = import ./ollama.nix;
   plymouth = import ./plymouth.nix;
   repart = ./repart.nix;
   syncthing = import ./syncthing.nix;
