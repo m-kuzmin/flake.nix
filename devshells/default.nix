@@ -99,4 +99,8 @@ in {
     packages = with cli; base ++ nix;
     extensions = with ext; base ++ nix ++ github;
   };
+  
+  ai = pkgs.mkShell {
+    packages = with pkgs; [pi-coding-agent nodejs_22 ollama ];
+  };
 }
