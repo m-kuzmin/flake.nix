@@ -65,5 +65,8 @@ in {
         };
       }
     ) (lib.filterAttrs (_: u: u.packages != []) cfg.users);
+
+    security.pam.services.login.fprintAuth = lib.mkDefault false;
+    security.pam.services.cosmic-greeter.fprintAuth = lib.mkDefault false;
   };
 }
