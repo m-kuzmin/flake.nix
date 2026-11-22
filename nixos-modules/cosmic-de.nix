@@ -1,4 +1,9 @@
-inputs: {config, pkgs, lib,...}: let
+inputs: {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   pkgs-bluetooth = inputs.nixpkgs-bluetooth.legacyPackages.${config.nixpkgs.system};
 in {
   # Temporary package downgrade to fix https://github.com/bluez/bluez/issues/2562
